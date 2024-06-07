@@ -1,13 +1,43 @@
 clc;clear;close all
-x=0:0.1:10;
+x=0:0.1:100;
 y1=sin(x);
 y2=cos(x);
-figure('Name','DEMO');
-t=tiledlayout(2,1); % åˆ›å»ºä»»æ„æ•°é‡çš„å›¾å—
+figure('Name','µ¥Í¼');
+% µ¥¸ö×ÓÍ¼»æÖÆ
+t0=tiledlayout("flow");
 nexttile
-plot(x,y1,'LineStyle','-','LineWidth',1,'Color',CustomColormap(2));
-customIEEE(gcf,8.8,6,8,'','','T (s)',{'\fontname{Simsun}å¹…å€¼'},{'sin'},'on')
+plot(x,y1,'LineStyle','-','LineWidth',1,'Color',CustomColormap(14,0));
+hold on
+plot(x,y2,'LineStyle','-','LineWidth',1,'Color',CustomColormap(2,0));
+scienceplot2D(gcf, 8.8,6, 8, [0,10],[-2,2],'Time','Amp',{'sin','cos'},'on');
+t0.Padding='tight'; % ËõĞ¡¿Õ°×
+
+% ¶à×ÓÍ¼»æÖÆ
+hFig2=figure('Name','×ÓÍ¼');
+t=tiledlayout(2,1); % ²¼¾Ö
 nexttile
-plot(x,y2,'LineStyle','--','LineWidth',1,'Color',CustomColormap(4));
-customIEEE(gcf,8.8,6,8,'','','T (s)',{'\fontname{Simsun}å¹…å€¼'},{'cos'},'on')
+plot(x,y1,'LineStyle','-','LineWidth',1,'Color',CustomColormap(2,0));
+scienceplot2D(gcf,8.8,6,8,[0,10],[-2,2],'T (s)',{'\fontname{Simsun}ÇúÏß1'},{'sin'},'on')
+nexttile
+plot(x,y2,'LineStyle','--','LineWidth',1,'Color',CustomColormap(4,0));
+scienceplot2D(gcf,8.8,6,8,[0,10],[-2,2],'T (s)',{'\fontname{Simsun}ÇúÏß2'},{'cos'},'on')
 t.Padding='tight';
+
+% ÈıÎ¬»æÖÆ
+
+% ¶¨Òå3DÊı¾İ
+[X, Y] = meshgrid(-5:0.5:5, -5:0.5:5); % Éú³ÉÒ»¸öÍø¸ñ
+Z = sin(sqrt(X.^2 + Y.^2)); % Ê¹ÓÃÍø¸ñµã¼ÆËãZÖµÀ´´´½¨Ò»¸ö3DÇúÃæÊı¾İ
+% ´´½¨Ò»¸öĞÂµÄÍ¼ĞÎ´°¿Ú
+hFig3=figure('Name','3D»æÍ¼');
+% »æÖÆ3DÇúÃæÍ¼
+surf(X, Y, Z);
+colormap(jet); % ÉèÖÃÉ«²ÊÓ³Éä
+colorbar; % ÏÔÊ¾ÑÕÉ«Ìõ
+shading interp; % ²åÈë×ÅÉ«£¬Ê¹ÑÕÉ«ÔÚ±íÃæÉÏÆ½»¬¹ı¶É
+% µ÷ÓÃÎÒÃÇ×Ô¶¨ÒåµÄ3D»æÍ¼ÉèÖÃº¯Êı
+scienceplot3D(hFig3, 8.8, 6, 8, [-5 5], [-5 5], [-1 1], 'X\fontname{ËÎÌå}Öá±êÇ©', 'Y\fontname{ËÎÌå}Öá±êÇ©', 'Z\fontname{ËÎÌå}Öá±êÇ©', {'\fontname{ËÎÌå}3DÇúÃæÊ¾Àı'}, 'on');
+% Îª¸üºÃµÄÊÓ¾õĞ§¹ûµ÷ÕûÊÓ½Ç
+view(-30, 30);
+
+
